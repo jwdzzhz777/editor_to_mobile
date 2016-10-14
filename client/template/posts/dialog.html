@@ -1,0 +1,90 @@
+<template name="dialogForImg">
+	<div id="dialogImg" title="图片上传对话框">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#myImg" data-toggle="tab">我的图片</a></li>
+			<li><a href="#publicImg" data-toggle="tab">公共图片</a></li>
+			<input type="file" name="imgUpload" id='imgUploadButton' style='float:right' class="btn btn-default">
+		</ul>
+		<div id="dialogTabContent" class="tab-content" style="height:400px">
+			<div class="tab-pane fade in active" id="myImg" style="height:100%">
+				{{#if hasImg}}
+					{{#each toFSFile userImgs}}
+						{{#if hasStore}}
+							<div class="chooseimg"><img src="{{this.url store='small'}}" data-trueurl="{{this.url  store='image'}}" id='{{this._id}}'/></div>
+						{{else}}
+							<div class="chooseimg" style="width:110px">
+								{{> FS.UploadProgressBar bootstrap=true}}
+							</div>
+						{{/if}}
+					{{/each}}
+				{{else}}img
+					<p>你还没有图片</p>
+				{{/if}}
+			</div>
+			<div class="tab-pane fade" id="publicImg">
+				<p>iOS 是一个由苹果公司开发和发布的手机操作系统。最初是于 2007 年首次发布 iPhone、iPod Touch 和 Apple
+					TV。iOS 派生自 OS X，它们共享 Darwin 基础。OS X 操作系统是用在苹果电脑上，iOS 是苹果的移动版本。</p>
+			</div>
+		</div>
+		<hr style="margin:1px">
+		<div class="buttonpane">
+			<button type="button" name="button" id="imgyes" class="btn btn-info">确定</button>
+			<button type="button" name="button" id="imgno" class="btn btn-info">取消</button>
+		</div>
+	</div>
+</template>
+
+<template name="dialogForOption">
+	<div id="dialog" title="基本的对话框">
+		<div class="addAnimeDiv" style="width:100%">
+			{{#each arrayify chooseImg}}
+			<div class="toggleDiv" data-index="{{truekey}}">
+				<div class="toggleButton">
+					<p style="margin-left:10px;width:auto;vertical-align:text-bottom;">
+						动画{{name}}
+						<a class='closeTheAnimaOptionToolbar'><span class="glyphicon glyphicon-remove animateRemove" style="float:right;margin:5px;"></span></a>
+					</p>
+				</div>
+				<div class="toggleBody">{{setData}}
+					<div id="" class="toggleBodyTagDiv">
+						<div style="margin:10px">
+							<div style="display:inline-block;margin-left:20px"><p>动画:</p></div>
+							<div class="dropdown" style="display:inline-block;margin-left:50px;">
+								<select class="animateChooseName" style="width:100px">
+									<option value="none" selected="{{isSelected 'none'}}">无</option>
+									<option value="fadeIn" selected="{{isSelected 'fadeIn'}}">淡入</option>
+								</select>
+							</div>
+							<hr style="margin:0px">
+						</div>
+						<div class="speedAnddelay" style="display:none">
+							<div style="margin:10px">
+								<div style="display:inline-block;margin-left:20px;"><p>时间:</p></div>
+								<div style="display:inline-block;margin-left:50px">
+									<input type="text" name="speed" value={{speed}} style="width:30px">
+								</div>
+								<hr style="margin:0px">
+							</div>
+							<div style="margin:10px">
+								<div style="display:inline-block;margin-left:20px"><p>延时:</p></div>
+								<div style="display:inline-block;margin-left:50px">
+									<input type="text" name="delay" value={{delay}} style="width:30px">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{{/each}}
+		</div>
+		<div class="">
+			<button type="button" id="addAnime" class="btn btn-info" style="margin:12px;width:40%">添加动画</button>
+			<button type="button" id="showAnime" class="btn btn-info" style="margin:12px;width:40%">预览动画</button>
+		</div>
+		<hr style="margin:1px">
+		<div class="buttonpane">
+			<button type="button" id="animayes" class="btn btn-info">确定</button>
+			<button type="button" id="animano" class="btn btn-info">取消</button>
+		</div>
+	</div>
+</template>
