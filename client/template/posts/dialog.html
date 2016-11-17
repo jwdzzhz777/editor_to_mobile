@@ -1,6 +1,6 @@
 <template name="dialogForImg">
 	<div id="dialogImg" title="图片上传对话框">
-		<ul class="nav nav-tabs">
+		<ul class="nav nav-pills">
 			<li class="active"><a href="#myImg" data-toggle="tab">我的图片</a></li>
 			<li><a href="#publicImg" data-toggle="tab">公共图片</a></li>
 			<input type="file" name="imgUpload" id='imgUploadButton' style='float:right' class="btn btn-default">
@@ -8,16 +8,18 @@
 		<div id="dialogTabContent" class="tab-content" style="height:400px">
 			<div class="tab-pane fade in active" id="myImg" style="height:100%">
 				{{#if hasImg}}
-					{{#each toFSFile userImgs}}
-						{{#if hasStore}}
-							<div class="chooseimg"><img src="{{this.url store='small'}}" data-trueurl="{{this.url  store='image'}}" id='{{this._id}}'/></div>
-						{{else}}
-							<div class="chooseimg" style="width:110px">
-								{{> FS.UploadProgressBar bootstrap=true}}
-							</div>
-						{{/if}}
+					{{#each userImgs}}
+						{{#with FS.GetFile 'images' selectedImageId}}
+							{{#if hasStore}}
+								<div class="chooseimg"><img src="{{this.url store='small'}}" data-trueurl="{{this.url  store='image'}}" id='{{this._id}}'/></div>
+							{{else}}
+								<div class="chooseimg" style="width:110px">
+									{{> FS.UploadProgressBar bootstrap=true}}
+								</div>
+							{{/if}}
+						{{/with}}
 					{{/each}}
-				{{else}}img
+				{{else}}
 					<p>你还没有图片</p>
 				{{/if}}
 			</div>
@@ -28,8 +30,13 @@
 		</div>
 		<hr style="margin:1px">
 		<div class="buttonpane">
-			<button type="button" name="button" id="imgyes" class="btn btn-info">确定</button>
-			<button type="button" name="button" id="imgno" class="btn btn-info">取消</button>
+			<div class="buttonpaneleft">
+				<button type="button" name="button" id="imgdelete" class="btn btn-info">删除图片</button>
+			</div>
+			<div class="buttonpaneright">
+				<button type="button" name="button" id="imgyes" class="btn btn-info">确定</button>
+				<button type="button" name="button" id="imgno" class="btn btn-info">取消</button>
+			</div>
 		</div>
 	</div>
 </template>
@@ -45,7 +52,7 @@
 						<a class='closeTheAnimaOptionToolbar'><span class="glyphicon glyphicon-remove animateRemove" style="float:right;margin:5px;"></span></a>
 					</p>
 				</div>
-				<div class="toggleBody">{{setData}}
+				<div class="toggleBody">
 					<div id="" class="toggleBodyTagDiv">
 						<div style="margin:10px">
 							<div style="display:inline-block;margin-left:20px"><p>动画:</p></div>
@@ -57,7 +64,7 @@
 							</div>
 							<hr style="margin:0px">
 						</div>
-						<div class="speedAnddelay" style="display:none">
+						<div class="speedAnddelay" style="{{isShow}}">
 							<div style="margin:10px">
 								<div style="display:inline-block;margin-left:20px;"><p>时间:</p></div>
 								<div style="display:inline-block;margin-left:50px">
@@ -78,13 +85,19 @@
 			{{/each}}
 		</div>
 		<div class="">
-			<button type="button" id="addAnime" class="btn btn-info" style="margin:12px;width:40%">添加动画</button>
-			<button type="button" id="showAnime" class="btn btn-info" style="margin:12px;width:40%">预览动画</button>
+			<button id="addAnime" class="btn btn-info" style="margin:12px;width:40%">添加动画</button>
+			<button id="showAnime" class="btn btn-info" style="margin:12px;width:40%">预览动画</button>
 		</div>
 		<hr style="margin:1px">
 		<div class="buttonpane">
-			<button type="button" id="animayes" class="btn btn-info">确定</button>
-			<button type="button" id="animano" class="btn btn-info">取消</button>
+			<div class="buttonpaneleft">
+				<button name="button" id="animaImgdelete" class="btn btn-info">删除图片</button>
+			</div>
+			<div class="buttonpaneright">
+				<button id="animayes" class="btn btn-info">确定</button>
+				<button id="animano" class="btn btn-info">取消</button>
+			</div>
+
 		</div>
 	</div>
 </template>

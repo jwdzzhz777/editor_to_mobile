@@ -12,20 +12,35 @@
 	display: none;
 }
 
+.ui-dialog{
+	box-shadow: 3px 3px 10px #888888;
+}
+
 .ui-widget-content{
 	border: 0;
 	padding: 0;
-	box-shadow: 3px 3px 10px #888888;
 }
 
 .ui-widget-header{
 	background: 0;
 	border: 0;
+	box-shadow:0;
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px; /*去掉两个圆角*/
 }
 
 .buttonpane{
+	width:100%
+}
+
+.buttonpaneright{
 	margin:10px;
 	float:right;
+}
+
+.buttonpaneleft{
+	margin:10px;
+	float:left;
 }
 .toggleButton,.closeTheAnimaOptionToolbar{
 	cursor:pointer;

@@ -1,3 +1,19 @@
 <template name="myPage">
-	<div id="fullpage"></div>
+	<div id="fullpage" style="">
+		{{#each arrayify page}}
+			<div class="section" id="page{{name}}" style="background-image:url({{value.background}});">
+				<div class="centerDivP">
+					<div class="centerDiv">
+						<div class="showDiv">
+							{{#each value.option}}
+								<div class="jwd" style="height:{{height}};width:{{width}};top:{{top}};left:{{left}}" id="{{id}}">
+									<img src="{{url}}" style="height:100%;width:100%"/>
+								</div>
+							{{/each}}
+						</div>
+					</div>
+				</div>
+			</div>
+		{{/each}}
+	</div>
 </template>

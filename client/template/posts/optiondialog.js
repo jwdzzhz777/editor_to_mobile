@@ -13,13 +13,15 @@ Template.dialogForOption.onRendered(function(){
 	});
 
 	//绑定事件
-	$('#dialog')
+	$('#dialog')//代理元素
+
 	//动画设置栏折叠
 	.on({
 		click:function(){
 			$(this).next().toggle(300);
 		}
 	},'.toggleButton')
+
 	//添加动画栏
 	.on({
 		click:function(){
@@ -30,6 +32,7 @@ Template.dialogForOption.onRendered(function(){
 			Session.set('targetImgOption',$('#'+targetId).data('option'));
 		}
 	},'#addAnime')
+
 	//选择动画
 	.on({
 		change: function(){
@@ -52,7 +55,8 @@ Template.dialogForOption.onRendered(function(){
 			//obj.key || obj[String]
 		}
 	},'.animateChooseName')
-	//删除
+
+	//删除动画
 	.on({
 		click: function(e){
 			e.stopPropagation();
@@ -63,6 +67,7 @@ Template.dialogForOption.onRendered(function(){
 			Session.set('targetImgOption',$('#'+targetId).data('option'));
 		}
 	},'.closeTheAnimaOptionToolbar')
+
 	//选择延时和速度
 	.on({
 		change:function(){
@@ -71,6 +76,7 @@ Template.dialogForOption.onRendered(function(){
 			data[$(this).closest('.toggleDiv').data('index')][$(this).attr('name')] = parseInt($(this).val())*1000;
 		}
 	},'input')
+
 	//预览动画
 	.on({
 		click: function(){
@@ -82,7 +88,25 @@ Template.dialogForOption.onRendered(function(){
 				$('#'+targetId).delay(element.delay).animate(element.option,element.speed);
 			});
 		}
-	},'#showAnime');
+	},'#showAnime')
+
+	//删除所选元素
+	.on({
+		click:function(){
+			var targetId = $('#dialog').data('target');
+			$('#'+targetId).remove();
+			$('#dialog').dialog('close');
+		}
+	},'#animaImgdelete');
+
+	$('#animayes').click(function(e){
+		var targetId = $('#dialog').data('target');
+		var datatest = $('#'+targetId).data('option');
+
+		Meteor.call('lihaile',{id:data._id,data:datatest},function(e,r){
+			if(e){}
+		})
+	});
 });
 
 Template.dialogForOption.helpers({
@@ -102,6 +126,9 @@ Template.dialogForOption.helpers({
 	},
 	speed: function(){
 		return this.value.speed / 1000;
+	},
+	isShow: function(){
+		return this.value.value == 'none'? "display:none":"";
 	}
 });
 

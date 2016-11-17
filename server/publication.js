@@ -1,4 +1,8 @@
-Meteor.publish('mypages',function(id){
+Meteor.publish('mypages',function(){
+	return Mypages.find();
+});
+
+Meteor.publish('mypage',function(id){
 	return Mypages.find({userId: id});
 });
 

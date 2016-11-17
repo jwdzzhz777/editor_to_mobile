@@ -2,24 +2,51 @@
 	<div style="height:100%">
 		<div class="toolbar">
 			<div class="collapse navbar-collapse" id="navigation">
+				{{#if this}}
+				<div class="btnBox">
+					<div class="btn btn-info returnBtn" style="height:50px" id="returnHome">
+						<span class="glyphicon glyphicon-menu-left"></span>
+						<p>返回</p>
+					</div>
+					<div class="btn btn-info myBtn" style="height:50px" id="addImg">
+						<span class="glyphicon glyphicon-picture"></span>
+						<p>图片</p>
+					</div>
+					<div class="btn btn-info myBtn" style="height:50px" id="setBackground">
+						<span class="glyphicon glyphicon-th-large"></span>
+						<p>背景</p>
+					</div>
+					<div class="btn btn-info myBtn" style="height:50px" id="destory">
+						<span class="glyphicon glyphicon-floppy-saved"></span>
+						<p>保存</p>
+					</div>
+					<div class="btn btn-info myBtn" style="height:50px" id="showForme">
+						<span class="glyphicon glyphicon-floppy-saved"></span>
+						<p>预览</p>
+					</div>
+					<div class="btn btn-info myBtn" style="height:50px" id="uploadpage">
+						<span class="glyphicon glyphicon-export"></span>
+						<p>发布</p>
+					</div>
+					<ul class="nav navbar-nav navbar-right">
+						{{> loginButtons}}
+					</ul>
+				</div>
+				{{else}}
 				<ul class="nav navbar-nav navbar-right">
 					{{> loginButtons}}
 				</ul>
+				{{/if}}
 			</div>
 		</div>
 		<div class="toolAll">
-			<div class="toolLeft toolDiv">
-				<button type="button" name="button" id="addImg">添加图片</button>
-				<button type="button" name="button" id="setBackground">设置背景图片</button>
-				<button type="button" name="button" id="destory">保存状态</button>
-				<button type="button" name="button" id="uploadpage">上传页面</button>
-			</div>
+			<div class="toolLeft toolDiv"></div>
 			<div class="toolRight toolDiv">
 				<button type="button" name="button" id="addPage">新建场景</button>
-				<ul id="sortable" class="nav nav-tabs">
+				<ul id="sortable" class="nav nav-pills">
 					{{#each arrayify page}}
-						<li class="ui-state-default {{isactive}}" style="width:100%">
-							<a href="#page{{name}}" data-toggle="tab">page{{name}}</a>
+						<li class="{{isactive}}" style="width:100%">
+							<a href="#page{{name}}" data-toggle="tab" class="toSomepage">page{{name}}</a>
 						</li>
 					{{/each}}
 				</ul>
@@ -29,7 +56,13 @@
 					<div class="centerDiv">
 						<div id="pageTabContent" class="tab-content"><!--做背景图片-->
 							{{#each arrayify page}}
-								<div class="editorDiv tab-pane fade in {{isactive}}" id="page{{name}}" style="background-image:{{value.background}};background-size:100% 100%"></div>
+								<div class="editorDiv tab-pane fade in {{isactive}}" id="page{{name}}" style="background-image:url({{value.background}});">
+									{{#each value.option}}
+										<div class="jwd" style="height:{{height}};width:{{width}};top:{{top}};left:{{left}};" id="{{id}}">
+											<img src="{{url}}" style="height:100%;width:100%" />
+										</div>
+									{{/each}}
+								</div>
 							{{/each}}
 						</div>
 					</div>

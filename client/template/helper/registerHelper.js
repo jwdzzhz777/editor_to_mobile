@@ -7,6 +7,7 @@ Template.registerHelper('arrayify',function(obj){
     return result;
 });
 
+//用不到了
 Template.registerHelper('toFSFile',function(obj){
     var result = [];
 	for (var key in obj){

@@ -1,0 +1,34 @@
+<template name="home">
+	<div class="toolbar container">
+		<div class="collapse navbar-collapse" id="navigation">
+			<ul class="nav navbar-nav navbar-right">
+				{{> loginButtons}}
+			</ul>
+		</div>
+	</div>
+	<div class="homeBody container">
+		<h2 style="color:#b3b3b3">开始创建</h2>
+		<div class="" style="margin:20px">
+			<a class="btn btn-default btn-sm" id="addMypage"><span class="glyphicon glyphicon-plus"></span>新建模板</a>
+			<hr>
+		</div>
+		<div>
+			<h2>我的模板</h2>
+			{{#each this}}
+			<figure class="myPageshow">
+				{{#if youtu}}
+				<img src="{{tupianyulan}}" alt="" style="height:100%"/>
+				{{/if}}
+				<figcaption>
+					<p>标题</p>
+					<div class="homeBoxButton">
+						<a class="btn btn-sm" id="homeDelete"><span class="glyphicon glyphicon-trash"></span><b>删除</b></a>
+						<a class="btn btn-sm" id="homeEdit"><span class="glyphicon glyphicon-wrench"></span><b>编辑</b></a>
+						<a class="btn btn-sm" id="homeUpload"><span class="glyphicon glyphicon-pushpin"></span><b>发布</b></a>
+					</div>
+				</figcaption>
+			</figure>
+			{{/each}}
+		</div>
+	</div>
+</template>
